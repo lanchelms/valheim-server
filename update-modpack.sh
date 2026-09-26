@@ -22,13 +22,16 @@ BOSS_KEYS=(
 declare -A BOSS_VALUES
 
 echo "Fetching latest version for ${NAMESPACE}/${MOD}..."
-VERSION=$(curl -s "https://thunderstore.io/api/v1/package-metrics/${NAMESPACE}/${MOD}/" | jq -r '.latest_version')
+VERSION=$(curl -s "https://hexium.gg/api/experimental/package/${NAMESPACE}/${MOD}/" | jq -r '.latest.version_number')
 [ -z "${VERSION}" ] || [ "${VERSION}" == "null" ] && { echo "Error: Fetch failed."; exit 1; }
-
-echo "Downloading ${VERSION}..."
+# Use custom version passed on command line
+[ -z "${1}" ] || { VERSION=${1}; }
+DOWNLOAD_URL=$(curl -s "https://hexium.gg/api/experimental/package/${NAMESPACE}/${MOD}/${VERSION}/" | jq -r '.download_url')
+[ -z "${DOWNLOAD_URL}" ] || [ "${DOWNLOAD_URL}" == "null" ] && { echo "Error: could not find download url for ${VERSION}."; exit 1; }
+echo "Downloading ${VERSION} from ${DOWNLOAD_URL}"
 mkdir -p "${BASE_DIR}/tmp/"
 OUTPUT_FILE="${BASE_DIR}/tmp/${NAMESPACE}_${MOD}_${VERSION}.zip"
-wget -q --show-progress -O "${OUTPUT_FILE}" "https://thunderstore.io/package/download/${NAMESPACE}/${MOD}/${VERSION}/" || { echo "Download failed."; exit 1; }
+wget -q --show-progress -O "${OUTPUT_FILE}" "${DOWNLOAD_URL}" || { echo "Download failed."; exit 1; }
 
 # --- BACKUP & PARSE DYNAMIC CONFIGS ---
 TIMESTAMP=$(date +%s)
@@ -64,7 +67,7 @@ fi
 # --- INSTALL MODPACK ---
 echo "Installing modpack..."
 cd ~/r2modman-headless
-go run . --install-dir ~/lanchelms-valheim-data/server/ --profile-zip "${OUTPUT_FILE}"
+go run . --install-dir ~/lanchelms-valheim-data/server/ --profile-zip "${OUTPUT_FILE}" || { echo "Failed"; exit 1; }
 
 # --- RESTORE DYNAMIC CONFIGS ---
 # 1. Seasonality Restore
