@@ -83,11 +83,11 @@ for BOSS in "${BOSS_KEYS[@]}"; do
 done
 
 # --- CLEANUP ---
-rm -rf ~/lanchelms-valheim-data/server/BepInEx/config/AzuAntiCheat_Greylist/**
+rm -rf ~/lanchelms-valheim-data/server/BepInEx/config/AzuAntiCheat/Greylist/**
 
 # greylist
-mv ~/lanchelms-valheim-data/server/BepInEx/plugins/ComfyMods-Gizmo ~/lanchelms-valheim-data/server/BepInEx/config/AzuAntiCheat_Greylist/
-mv ~/lanchelms-valheim-data/server/BepInEx/plugins/Advize-PlantEasily ~/lanchelms-valheim-data/server/BepInEx/config/AzuAntiCheat_Greylist/
+mv ~/lanchelms-valheim-data/server/BepInEx/plugins/ComfyMods-Gizmo ~/lanchelms-valheim-data/server/BepInEx/config/AzuAntiCheat/Greylist/
+mv ~/lanchelms-valheim-data/server/BepInEx/plugins/Advize-PlantEasily ~/lanchelms-valheim-data/server/BepInEx/config/AzuAntiCheat/Greylist/
 
 # Remove maintenance mode if it was turned on
 rm -f ~/lanchelms-valheim-data/server/BepInEx/config/maintenance
