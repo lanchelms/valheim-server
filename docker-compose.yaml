@@ -33,4 +33,4 @@ services:
       - ${HOME}/lanchelms-valheim-data/saves:/home/steam/.config/unity3d/IronGate/Valheim
       - ${HOME}/lanchelms-valheim-data/server:/home/steam/valheim
       - ${HOME}/lanchelms-valheim-data/backups:/home/steam/backups
-      - ${HOME}/lanchelms-valheim-data/server/BepInEx/plugins:/home/steam/valheim/BepInEx/config/AzuAntiCheat_Whitelist
+      - ${HOME}/lanchelms-valheim-data/server/BepInEx/plugins:/home/steam/valheim/BepInEx/config/AzuAntiCheat/Whitelist
