@@ -5,6 +5,7 @@ services:
     user: "111:1000"
     stop_grace_period: 60s
     stop_signal: SIGINT
+    restart: unless-stopped
     ports:
       - "32101:32101/udp"
       - "32102:32102/udp"
