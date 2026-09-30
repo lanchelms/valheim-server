@@ -34,7 +34,9 @@ LATEST_BACKUP_DIR=$(find "${VALHEIM_SAVES_DIR}/worlds_local" -maxdepth 1 -type d
 if [ -n "${LATEST_BACKUP_DIR}" ]; then
     echo "Found latest backup: $(basename "${LATEST_BACKUP_DIR}")"
     TARGET_GZ="${SYNCTHING_DATA_DIR}/worlds_local/${WORLD_NAME}_latest_backup.tar.gz"
-    tar -C "${LATEST_BACKUP_DIR}" -czf "${TARGET_GZ}" .
+    BACKUP_PARENT=$(dirname "${LATEST_BACKUP_DIR}")
+    BACKUP_NAME=$(basename "${LATEST_BACKUP_DIR}")
+    tar -C "${BACKUP_PARENT}" -czf "${TARGET_GZ}" "${BACKUP_NAME}"
     echo "Successfully zipped into ${TARGET_GZ}"
 else
     echo "No auto backup directory found for ${WORLD_NAME}!"
