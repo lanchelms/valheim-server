@@ -16,6 +16,7 @@ BOSS_KEYS=(
   "08.06 - Yagluth"
   "08.07 - Queen"
   "08.08 - Fader"
+  "08.09 - Kall"
 )
 
 # Initialize associative array to hold the parsed states
